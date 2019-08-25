@@ -1,0 +1,275 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;\red255\green0\blue0;\red255\green105\blue180;}
+\paperw15840\paperh12240\margl720\margr720\margt720\margb720\gutter0\ltrsect\landscape 
+\pgnstarts 
+{\footer\pard\plain\posxc {\field{\fs16\fldinst PAGE}{\fldrslt 1}}\par}
+\viewkind6\uc1\pard\f0\fs16  \par
+\pard\cf1\ul\b soa version 3 Relay Coordination Study\par
+\pard\cf0\ulnone\b0  \par
+\pard\cf1\b Region: soa\par
+\pard\cf0\b0  \par
+CAPE 14 Initial Build Date: March 5, 2015 (Revised: March 14, 2019)\par
+Macro Revision Number:   1.14\par
+Macro Revision Date  : May 16, 2016\par
+Database             : "c:\\users\\cape04\\desktop\\pesd\\ksa_case_12_07_2017.gdb"\par
+ \par
+Simulation Area Optimizations WILL be applied\par
+ \par
+Start Time             : Apr  8 2019 22:04:53\par
+ \par
+The following parameters will be used in the study\par
+--------------------------------------------------\par
+ \par
+Time Unit Selected: SECONDS\par
+ \par
+Fault Types\par
+-----------\par
+These  4 faults have been selected:\par
+ 1. SINGLE_LINE_GROUND (bolted)\par
+ 2. THREE_PHASE (bolted)\par
+ 3. LG_ with fault resistance = 20 ohms\par
+ 4. LG_ with fault resistance = 20 ohms\par
+ \par
+Fault Locations\par
+---------------\par
+These  3 fault locations have been selected:\par
+ 1.  30.0%\par
+ 2.  85.0%\par
+ 3. Remote close-in\par
+ \par
+Simulation Options/Levels of Backup\par
+-----------------------------------\par
+Faults on high-side of load-tap transformers   : WILL NOT be simulated\par
+Faults on paths terminating at fictitious buses: WILL be simulated\par
+Number of levels of backup to include          :  1\par
+Number of levels of mutual coupling to include :  1\par
+ \par
+Contingencies and Scenarios to be studied\par
+-----------------------------------------\par
+ \par
+No N-2 contingencies selected for the study\par
+ \par
+The following N-1 contingencies will be studied:\par
+ 1. Lines connected at local and remote bus(es).\par
+ 2. Lines mutually coupled to study line.\par
+ \par
+"System Normal" Study Options\par
+-----------------------------\par
+"System Normal" study will be performed\par
+ \par
+Package Outaging Options\par
+------------------------\par
+No packages will be outaged - all in service\par
+ \par
+Pilot/Teleprotection Scheme Options\par
+-----------------------------------\par
+Normal Condition : Pilot/teleprotection schemes out-of-service\par
+Outage Conditions: Pilot/teleprotection schemes out-of-service\par
+Inhibited Breaker: Pilot/teleprotection schemes ALWAYS IN SERVICE\par
+ \par
+Coordination Time Interval (CTI) Settings\par
+-----------------------------------------\par
+Desired CTI                                 : 12.00 SECONDS\par
+Maximum allowed CTI                         : Not to be evaluated.\par
+ \par
+ \par
+\pard\cf2\b Performing topology search for the starting branch ...\cf0\b0  \par
+\cf2\b 49200 MHYL_WEST (  , 380.0kV) to 334 334 (CO, 380.0kV) circuit    1\cf0\b0  \par
+\pard  \par
+Found 1 remote buses at same voltage level\par
+Remote bus: 334 334             (CO,380.0kV)\par
+ \par
+Found 0 remote buses at different voltage level\par
+ \par
+Found 0 load tap transformers on the line\par
+ \par
+Finding local and remote sources, including mutual coupling...\par
+ \par
+Finding lines mutually coupled to study line:\par
+49200 MHYL_WEST (  , 380.0kV) to 334 334 (CO, 380.0kV) circuit    1\par
+ \par
+Sources at local substation MUHAYIL WEST BSP\par
+---------------------------------------------------------\par
+Number of shunts to be outaged               :  0\par
+ \par
+Number of transformers to be outaged         :  3\par
+Transformer: 49200 40064 1\par
+Transformer: 49200 40065 2\par
+Transformer: 49200 40066 3\par
+ \par
+Number of generators (via GSUs) to be outaged:  0\par
+ \par
+Number of tie breakers to be outaged         :  0\par
+ \par
+Number of lines to be outaged                :  6\par
+ \par
+Number of mutually coupled lines at this bus :  0\par
+ \par
+Sources at remote substation MADHAYA\par
+---------------------------------------------------------\par
+Number of shunts to be outaged               :  0\par
+ \par
+Number of transfor
+mers to be outaged         :  3\par
+Transformer: 334 335 1\par
+Transformer: 334 335 2\par
+Transformer: 334 335 3\par
+ \par
+Number of generators (via GSUs) to be outaged:  0\par
+ \par
+Number of tie breakers to be outaged         :  0\par
+ \par
+Number of lines to be outaged                :  3\par
+ \par
+Number of mutually coupled lines at this bus :  0\par
+ \par
+Finished identifying sources at all terminals.\par
+Determining pilot/teleprotection and line differential scheme information...\par
+Beginning coordination studies ...\par
+ \par
+\pard\cf2\b Evaluating coordination on path ...\cf0\b0\par
+\cf2\b 49200 MHYL_WEST (  , 380.0kV) to 334 334 (CO, 380.0kV) circuit    1 to remote bus 334 334 (CO, 380.0kV)\cf0\b0  \par
+\pard  \par
+\pard\qc\cf2\ul Simulations with all packages in service, none outaged; Pilots Disabled (Except for Inh. Bkr. Study)\par
+\pard\cf0\ulnone ---------------------------------------------------------------------------------------------------------------------------------------------------------------\par
+ No.    Network Situation/Outages in Effect    Fault (RF)                   Fault Location                   Time(sec)                Operation\par
+----- ---------------------------------------- ---------- -------------------------------------------------- --------- ----------------------------------------\par
+\pard\cf1     1 Primary System Normal/Pilot Out          SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b     2 Primary System Normal/Pilot Out          SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+    3 Primary System Normal/Pilot Out          SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0     4 Primary System Normal/Pilot Out          TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+    5 Primary System Normal/Pilot Out          TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b     6 Primary System Normal/Pilot Out          TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0     7 Primary System Normal/Pilot Out          SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+    8 Primary System Normal/Pilot Out          SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+    9 Primary System Normal/Pilot Out          SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   10 Primary System Normal/Pilot Out          DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   11 Primary System Normal/Pilot Out          DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    12 Primary System Normal/Pilot Out          DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    13 Line  : 49200-20945-1(380KV_LTH_MHYL_WES SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    14 Line  : 49200-20945-1(380KV_LTH_MHYL_WES SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   15 Line  : 49200-20945-1(380KV_LTH_MHYL_WES SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    16 Line  : 49200-20945-1(380KV_LTH_MHYL_WES TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   17 Line  
+: 49200-20945-1(380KV_LTH_MHYL_WES TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    18 Line  : 49200-20945-1(380KV_LTH_MHYL_WES TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    19 Line  : 49200-20945-1(380KV_LTH_MHYL_WES SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   20 Line  : 49200-20945-1(380KV_LTH_MHYL_WES SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   21 Line  : 49200-20945-1(380KV_LTH_MHYL_WES SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   22 Line  : 49200-20945-1(380KV_LTH_MHYL_WES DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   23 Line  : 49200-20945-1(380KV_LTH_MHYL_WES DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    24 Line  : 49200-20945-1(380KV_LTH_MHYL_WES DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    25 Line  : 49200-20945-2(380KV_LTH_MHYL_WES SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    26 Line  : 49200-20945-2(380KV_LTH_MHYL_WES SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   27 Line  : 49200-20945-2(380KV_LTH_MHYL_WES SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    28 Line  : 49200-20945-2(380KV_LTH_MHYL_WES TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   29 Line  : 49200-20945-2(380KV_LTH_MHYL_WES TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    30 Line  : 49200-20945-2(380KV_LTH_MHYL_WES TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    31 Line  : 49200-20945-2(380KV_LTH_MHYL_WES SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   32 Line  : 49200-20945-2(380KV_LTH_MHYL_WES SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   33 Line  : 49200-20945-2(380KV_LTH_MHYL_WES SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   34 Line  : 49200-20945-2(380KV_LTH_MHYL_WES DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   35 Line  : 49200-20945-2(380KV_LTH_MHYL_WES DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    36 Line  : 49200-20945-2(380KV_LTH_MHYL_WES DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    37 Line  : 49200-49500-1(380KV_MHYL_WEST_SH SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    38 Line  : 49200-49500-1(380KV_MHYL_WEST_SH SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   39 Line  : 49200-49500-1(380KV_MHYL_WEST_SH SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    40 Line  : 49200-49500-1(380KV_MHYL_WEST_SH TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   41 Line  : 49200-49500-1(380KV_MHYL_WEST_SH TPH       
+ Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    42 Line  : 49200-49500-1(380KV_MHYL_WEST_SH TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    43 Line  : 49200-49500-1(380KV_MHYL_WEST_SH SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   44 Line  : 49200-49500-1(380KV_MHYL_WEST_SH SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   45 Line  : 49200-49500-1(380KV_MHYL_WEST_SH SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   46 Line  : 49200-49500-1(380KV_MHYL_WEST_SH DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   47 Line  : 49200-49500-1(380KV_MHYL_WEST_SH DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    48 Line  : 49200-49500-1(380KV_MHYL_WEST_SH DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    49 Line  : 49200-49500-2(380KV_MHYL_WEST_SH SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    50 Line  : 49200-49500-2(380KV_MHYL_WEST_SH SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   51 Line  : 49200-49500-2(380KV_MHYL_WEST_SH SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    52 Line  : 49200-49500-2(380KV_MHYL_WEST_SH TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   53 Line  : 49200-49500-2(380KV_MHYL_WEST_SH TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    54 Line  : 49200-49500-2(380KV_MHYL_WEST_SH TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    55 Line  : 49200-49500-2(380KV_MHYL_WEST_SH SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   56 Line  : 49200-49500-2(380KV_MHYL_WEST_SH SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   57 Line  : 49200-49500-2(380KV_MHYL_WEST_SH SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   58 Line  : 49200-49500-2(380KV_MHYL_WEST_SH DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   59 Line  : 49200-49500-2(380KV_MHYL_WEST_SH DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    60 Line  : 49200-49500-2(380KV_MHYL_WEST_SH DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    61 Line  : 49200-49900-1(380KV_MHYL_WEST_NA SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    62 Line  : 49200-49900-1(380KV_MHYL_WEST_NA SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   63 Line  : 49200-49900-1(380KV_MHYL_WEST_NA SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    64 Line  : 49200-49900-1(380KV_MHYL_WEST_NA TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   65 Line  : 49200-49900-1(380KV_MHYL_WEST_NA TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_C
+K to 3    0.0583 OK                                      \par
+\cf3\b    66 Line  : 49200-49900-1(380KV_MHYL_WEST_NA TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    67 Line  : 49200-49900-1(380KV_MHYL_WEST_NA SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   68 Line  : 49200-49900-1(380KV_MHYL_WEST_NA SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   69 Line  : 49200-49900-1(380KV_MHYL_WEST_NA SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   70 Line  : 49200-49900-1(380KV_MHYL_WEST_NA DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   71 Line  : 49200-49900-1(380KV_MHYL_WEST_NA DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    72 Line  : 49200-49900-1(380KV_MHYL_WEST_NA DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    73 Line  : 49200-49900-2(380KV_MHYL_WEST_NA SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    74 Line  : 49200-49900-2(380KV_MHYL_WEST_NA SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   75 Line  : 49200-49900-2(380KV_MHYL_WEST_NA SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    76 Line  : 49200-49900-2(380KV_MHYL_WEST_NA TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   77 Line  : 49200-49900-2(380KV_MHYL_WEST_NA TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    78 Line  : 49200-49900-2(380KV_MHYL_WEST_NA TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    79 Line  : 49200-49900-2(380KV_MHYL_WEST_NA SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   80 Line  : 49200-49900-2(380KV_MHYL_WEST_NA SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   81 Line  : 49200-49900-2(380KV_MHYL_WEST_NA SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   82 Line  : 49200-49900-2(380KV_MHYL_WEST_NA DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   83 Line  : 49200-49900-2(380KV_MHYL_WEST_NA DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    84 Line  : 49200-49900-2(380KV_MHYL_WEST_NA DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0    85 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   86 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf4\b    87 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf1\b0    88 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   89 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                          
+            \par
+\cf4\b    90 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf1\b0    91 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   92 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   93 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+   94 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+   95 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf4\b    96 Line  : 334-331-1(SHUQAIQ_II_-_MDY_CK)   DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf1\b0    97 Line  : 334-49600-1(KUDMI_MADHAYA_1)     SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b    98 Line  : 334-49600-1(KUDMI_MADHAYA_1)     SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+   99 Line  : 334-49600-1(KUDMI_MADHAYA_1)     SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0   100 Line  : 334-49600-1(KUDMI_MADHAYA_1)     TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf4\b   101 Line  : 334-49600-1(KUDMI_MADHAYA_1)     TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf3   102 Line  : 334-49600-1(KUDMI_MADHAYA_1)     TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0   103 Line  : 334-49600-1(KUDMI_MADHAYA_1)     SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+  104 Line  : 334-49600-1(KUDMI_MADHAYA_1)     SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+  105 Line  : 334-49600-1(KUDMI_MADHAYA_1)     SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+  106 Line  : 334-49600-1(KUDMI_MADHAYA_1)     DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf4\b   107 Line  : 334-49600-1(KUDMI_MADHAYA_1)     DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf3   108 Line  : 334-49600-1(KUDMI_MADHAYA_1)     DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0   109 Line  : 334-49600-2(MADHAYA_KUDMI_2)     SLG        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf3\b   110 Line  : 334-49600-2(MADHAYA_KUDMI_2)     SLG        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+  111 Line  : 334-49600-2(MADHAYA_KUDMI_2)     SLG        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0   112 Line  : 334-49600-2(MADHAYA_KUDMI_2)     TPH        Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf4\b   113 Line  : 334-49600-2(MADHAYA_KUDMI_2)     TPH        Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf3   114
+ Line  : 334-49600-2(MADHAYA_KUDMI_2)     TPH        Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\cf1\b0   115 Line  : 334-49600-2(MADHAYA_KUDMI_2)     SLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+  116 Line  : 334-49600-2(MADHAYA_KUDMI_2)     SLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+  117 Line  : 334-49600-2(MADHAYA_KUDMI_2)     SLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.1167 OK                                      \par
+  118 Line  : 334-49600-2(MADHAYA_KUDMI_2)     DLG( 20)   Midline (30.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 OK                                      \par
+\cf4\b   119 Line  : 334-49600-2(MADHAYA_KUDMI_2)     DLG( 20)   Midline (85.0%): on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 CTI VIOLATION( 1)                       \par
+\cf3   120 Line  : 334-49600-2(MADHAYA_KUDMI_2)     DLG( 20)   Remote close-in: on MDY_-_MUHAYIL_WEST_BSP_CK to 3    0.0583 MISCOORDINATION( 1)                     \par
+\pard\cf0\b0 ---------------------------------------------------------------------------------------------------------------------------------------------------------------\par
+ \par
+\pard\cf1\b For detailed reports, see file: \cf2\ul\b0 NG_Coord_Running_380KV_(MHYL_WEST_49200)_(334_334)_(334_334)_CKT1.rtf\cf0\ulnone  \par
+\pard  \par
+ \par
+\pard\cf2\b Coordination already evaluated, skipping study on path ...\cf0\b0\par
+\cf2\b 334 334 (CO, 380.0kV) to 49200 MHYL_WEST (  , 380.0kV) circuit    1 to remote bus 49200 MHYL_WEST (  , 380.0kV)\cf0\b0  \par
+\pard  \par
+\pard\cf1\b All screen text stored in file: \cf2\b0 MDY_-_MUHAYIL_WEST_BSP_CK_summary.rtf\cf0  \par
+\pard  \par
+End Time               : Apr  8 2019 22:24:37\par
+\par
+}
+
