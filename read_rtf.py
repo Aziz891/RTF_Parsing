@@ -1,10 +1,19 @@
 import pandas as pd
 import re
+from tkinter import *
 rtf_list = []
 regex = re.compile(r'^\S* No packages have been outaged;')
 regex_end = re.compile(r'^.*Fault cleared at')
 
 element_pd = pd.DataFrame()
+
+root = Tk()
+
+mybutton = Button(root, text = 'Exit')
+mybutton.pack()
+root.mainloop()
+
+
 
 def fault_parse(start):
     temp = []
@@ -20,20 +29,25 @@ def fault_to_panda(fault):
     fault_info = False
     fault_details = False
     temp = []
+    element_list = []
+    circuit_details = []
     for i in fault:
 
         if fault_info:
-            match_reg = re.split(r'\s{2,50}', i)
-            for index, j in enumerate(match_reg[1:]):
+            match_reg = re.findall(r'{(\\cf4|\\cf2\\b|\\cf1\\b) (.{5}) (.{40}) (.{10}) (.{50}) (.{9}) (.{26})\\par', i)
+            for index, j in enumerate(match_reg[0]):
                 
-                if index in [0, 3]:
-                    test = re.findall(r'(\d*)\s(.*)', j)
-                    temp.extend(*test)
-                elif index in [2]:
+                # if index in [0, 3]:
+                #     test = re.findall(r'(\d*)\s(.*)', j)
+                #     temp.extend(*test)
+                if index in [4]:
                     test = re.split(r'on', j)
                     temp.extend(test)
+                elif index ==0:
+                    continue
                 else:
                     temp.append(j)
+
 
 
 
@@ -48,12 +62,14 @@ def fault_to_panda(fault):
 
 
         if fault_details:
+            #   element_list = []
 
-              circuit_details = []  
+              
 
               if re.match(r'^{\\cf5\\b Element: ', i):
-                  elemend_details = re.findall(r'{\\cf5\\b Element: (\d*) (\w*) "(\w*)" "(\w*)"; \((.*)\)\s*; Contact Logic Code: (\w*)\s*; Op. Time:  (.*)\\par}', i)
-                  print    
+                  element_details = re.findall(r'{\\cf5\\b Element: (\d*) (\w*) "(\w*)" "(\w*)"; \((.*)\)\s*; Contact Logic Code: (\w*)\s*; Op. Time:  (.*)\\par}', i)
+                  element_list.append([*temp[:-1], *circuit_details[0][1:], *element_details[0]])
+                  print
 
               elif re.match(r'^{\\cf6\\b   Sup. : ', i):
                   print
@@ -63,8 +79,8 @@ def fault_to_panda(fault):
               elif re.match(r'{\\cf4 ----------------', i):
                   fault_details = False
 
-              if re.match(r'^{\\cf4', i):
-                  circuit_details = re.findall(r'^{\\cf4 (.{0,20}) (.{35}) (.{5}) (.{7}) (.{6}) (.{5}) (.{6})  ', i)
+              if re.match(r'^{(\\cf4|\\cf2\\b|\\cf1\\b)', i):
+                  circuit_details = re.findall(r'^{(\\cf4|\\cf2\\b|\\cf1\\b) (.{0,20}) (.{35}) (.{5}) (.{7}) (.{6}) (.{5}) (.{6}) (.{6}) (.*)\\par}', i)
                   print            
 
 
@@ -74,7 +90,8 @@ def fault_to_panda(fault):
 
         if re.match(r'^{\\cf4 -------------------- -', i):
              fault_details = True
-    
+    return element_list
+
 
 
 
@@ -93,7 +110,20 @@ for index, i in enumerate(rtf_list):
          fault_parse(index)
 
 for i in fault_list:
-    fault_to_panda(i)
+    result_faults = fault_to_panda(i)
+    element_pd = element_pd.append(result_faults, )
+
+element_pd.columns =['column' + str(i) for i in range(22)]
+element_pd.set_index(['column4', 'column0', 'column1', 'column2', 'column3', 'column5', 'column6', 'column7'  ], inplace=True)
+element_pd = element_pd[element_pd['column14'] != 'NORMAL OPERATION']
+element_pd.to_excel('output.xlsx')
+
+print()
+
+
+
+
+
 
 
     

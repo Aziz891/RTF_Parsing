@@ -1,5 +1,7 @@
 .vscode/
 .history/
 .idea/
+*.xlsx
+
 
 
