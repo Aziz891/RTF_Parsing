@@ -114,7 +114,8 @@ for i in fault_list:
     element_pd = element_pd.append(result_faults, )
 
 element_pd.columns =['column' + str(i) for i in range(22)]
-element_pd.set_index(['column4', 'column0', 'column1', 'column2', 'column3', 'column5', 'column6', 'column7'  ], inplace=True)
+element_pd.set_index(['column4',  'column6', 'column7', 'column17', 'column2'  ], inplace=True)
+element_pd = element_pd.sort_index()
 element_pd = element_pd[element_pd['column14'] != 'NORMAL OPERATION']
 element_pd.to_excel('output.xlsx')
 
