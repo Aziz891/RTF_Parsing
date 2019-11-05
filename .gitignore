@@ -2,6 +2,9 @@
 .history/
 .idea/
 *.xlsx
+*.xls
+*.rtf
+
 
 
 
