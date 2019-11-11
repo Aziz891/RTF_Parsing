@@ -1,7 +1,5 @@
 import pandas as pd
 import re
-import tkinter as tk
-from tkinter import filedialog
 import os
 rtf_list = []
 regex = re.compile(r'^\\pard\\cf3(.*)Zone: (\d);(.*)please wait ...\\par')
@@ -22,7 +20,7 @@ regex_fault_details_z2_sens = re.compile(r'(?:\\pard\\cf1\\b0 |\\pard\\cf2\\b |\
 '--- -------- ---------------------------------------- ------------------------------------ ------ ------ ------- ------ --------- ------- ------ ----- ---- -----\\par\n'
 regex_fault_details_z2_tranform = re.compile(r'(?:\\pard\\cf1\\b0 |\\pard\\cf2\\b |\\pard\\cf2\\b |)(.{3}) (.{8}) (.{40}) (.{36}) (.{6}) (.{6}) (.{7}) (.{6}) (.{9}) (.{7}) (.{6}) (.{5}) (.{4}) (.{5})\\par')
 regex_circuit_details = re.compile(r'^{(\\cf4|\\cf2\\b|\\cf1\\b) (.{0,20}) (.{35}) (.{5}) (.{7}) (.{6}) (.{5}) (.{6}) (.{6}) (.*)\\par}')
-directory = r'C:\\Users\\aziza\Downloads\\AAB-20191107T172806Z-001\\AAB'
+
 
 
 
@@ -321,8 +319,8 @@ def parse_sensitivity_files(dirct_path):
     element_pd_fwd = pd.DataFrame()
     element_pd_transform = pd.DataFrame()
 
-    for filename in os.listdir(directory):
-        if filename.endswith(".rtf") : 
+    for filename in os.listdir(dirct_path):
+        if filename.startswith("NG_Sens") : 
    
             with open( dirct_path +'\\'+ filename, 'r') as f:
                 rtf_list = []
@@ -376,7 +374,7 @@ def parse_sensitivity_files(dirct_path):
 
     # print()
 
-parse_sensitivity_files(directory)
+
 
 
 

@@ -5,6 +5,7 @@
 *.xls
 *.rtf
 bash.exe.stackdump
+__pycache__/
 
 
 
