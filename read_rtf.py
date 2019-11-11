@@ -148,8 +148,8 @@ def parse_coordination_files(dirct_path):
                     if i != '\n':
                         rtf_list.append(i)
             element_pd = element_pd.append(parse_file(rtf_list))
-            if count > 1:
-                break
+            # if count > 1:
+            #     break
             print('done')
 
 
@@ -161,17 +161,19 @@ def parse_coordination_files(dirct_path):
    element_pd_filtered = element_pd_filtered[(element_pd_filtered['Element Operation Time'].astype(float) >= element_pd_filtered['LZOP Time'].astype(float).multiply(0.9) ) & (element_pd_filtered['Element Operation Time'].astype(float) <= element_pd_filtered['LZOP Time'].astype(float).multiply(1.1)) ]
    length = element_pd_filtered.shape[0]
    count = 0
-   element_pd_temp = element_pd[(element_pd['Outage Number'] == element_pd_filtered['Outage Number'])] 
+   element_pd_temp = pd.DataFrame()
+   element_pd_temp_2 = element_pd[(element_pd['Outage Number'].isin(element_pd_filtered['Outage Number'])) & (element_pd['Contingency'].isin(element_pd_filtered['Contingency'])) & (element_pd['Line Under Study'].isin(element_pd_filtered['Line Under Study'])) & (element_pd['Fault Type'].isin(element_pd_filtered['Fault Type'])) & (element_pd['Primary/Backup'] == 'PRIMARY') ]
      
    for index, row in element_pd_filtered.iterrows():
-        # test = element_pd[(element_pd['Outage Number'] == row[0]) & (element_pd['Contingency'] == row[1]) & (element_pd['Line Under Study'] == row[4]) & (element_pd['Fault Type'] == row[2]) & (element_pd['Primary/Backup'] == 'PRIMARY')]
+    
+        test = element_pd_temp_2[(element_pd_temp_2['Outage Number'] == row[0]) & (element_pd_temp_2['Contingency'] == row[1]) & (element_pd_temp_2['Line Under Study'] == row[4]) & (element_pd_temp_2['Fault Type'] == row[2]) ]
      
-        # test['Primary/Backup'] =  test['Primary/Backup'] +'-'+ test['Substation'] 
-        # test['Substation'] = row.at['Substation']
-        # test['Element'] = row.at['Element']
-        # test['LZOP Name'] = row.at['LZOP Name']
-        # element_pd_temp = element_pd_temp.append(test)
-        # test = element_pd.loc[index]
+        test['Primary/Backup'] =  test['Primary/Backup'] +'-'+ test['Substation'] 
+        test['Substation'] = row.at['Substation']
+        test['Element'] = row.at['Element']
+        test['LZOP Name'] = row.at['LZOP Name']
+        element_pd_temp = element_pd_temp.append(test)
+
         count+= 1
         if count % 100 ==0:
             print((count/length)*100)
