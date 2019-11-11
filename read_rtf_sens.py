@@ -6,8 +6,8 @@ regex = re.compile(r'^\\pard\\cf3(.*)Zone: (\d);(.*)please wait ...\\par')
 regex_z2 = re.compile(r'^\\pard\\cf3(.*); \(including reverse elements at remote buses\) please wait ...\\par')
 regex_end = re.compile(r'^End of (.*)\\par')
 # \pard\cf3 JBC2_30112  57577 DIST "Z1" (7SD52_V4.3_5A); Contact Logic Code: 21PG1_M1\par
-regex_element_info = re.compile(r'^\\pard\\cf3 (\S*)  (\S*) (\S*) "(\S*)" \((.*)\); Contact Logic Code: (.*)\\par')
-regex_element_info_z2 = re.compile(r'^(\S*) ELEMENT: (.): (\S*)  (\S*) (\S*) "(\S*)" (\S*) "(.*)" \((.*)\); Contact Logic Code: "(.*)"\\par')
+regex_element_info = re.compile(r'^\\pard\\cf3 (.*)  (\S*) (\S*) "(\S*)" \((.*)\); Contact Logic Code: (.*)\\par')
+regex_element_info_z2 = re.compile(r'^(\S*) ELEMENT: (.): (.*)  (\S*) (\S*) "(\S*)" (\S*) "(.*)" \((.*)\); Contact Logic Code: "(.*)"\\par')
 'FWD ELEMENT: 1: JBC2_30112  57577 DIST "Z1B" Zone "1" (7SD52_V4.3_5A); Contact Logic Code: "21PGB_M1"\\par\n'
 'FWD ELEMENT: 1: JBC2_30112  57577 DIST "Z1B" Zone "1" (7SD52_V4.3_5A); Contact Logic Code: "21PGB_M1"\\par'
 # \pard\cf2\b  10 TPH      Tie   : 30112-301123                       0.00   1.41   79.22     0.97    68.64   0.00  85.00 FAIL > 999 No Sce I\par
@@ -82,13 +82,13 @@ def fault_to_panda_z2(fault):
                 mode = 1
                 elements = []
 
-            if re.match(r'^\\pard\\cf3 (\S*)  (\S*) (\S*) "(.*)" Zone "(.*)" \((.*)\); Contact Logic Code: "(.*)"', i):
+            if re.match(r'^\\pard\\cf3 (.*)  (\S*) (\S*) "(.*)" Zone "(.*)" \((.*)\); Contact Logic Code: "(.*)"', i):
                 mode = 2
                 one_element = None
 
 
         if mode == 2:
-            reg1 = re.findall(r'^\\pard\\cf3 (\S*)  (\S*) (\S*) "(.*)" Zone "(?:.*)" \((.*)\); Contact Logic Code: "(.*)"', i)
+            reg1 = re.findall(r'^\\pard\\cf3 (.*)  (\S*) (\S*) "(.*)" Zone "(?:.*)" \((.*)\); Contact Logic Code: "(.*)"', i)
             reg2 = regex_fault_details_z2_sens.findall(i)
             if re.match(r'\\pard\\cf1 Zone (\d) - Testing reach through', i):
                 transform = True
@@ -149,6 +149,18 @@ def fault_to_panda_z2(fault):
             reg1 = regex_element_info_z2.findall(i)
             reg2 = regex_fault_details_z2.findall(i)
             reg_rev = regex_fwd_rev.findall(i)
+
+            if continue_line:
+                    i = re.sub(r'\n', '', last_line) + i
+                    continue_line = False
+                    reg1 = regex_element_info_z2.findall(i)
+                    reg2 = regex_fault_details_z2.findall(i)
+                    reg_rev = regex_fwd_rev.findall(i)
+                
+            if not re.match(r'.*\\par$', i):
+                    last_line = i
+                    continue_line = True
+                    continue
             
             
 

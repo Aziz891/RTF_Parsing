@@ -9,7 +9,7 @@ regex_end = re.compile(r'^{\\f0\\fs16\\cf4  \\par')
 regex_fault_info = re.compile(
     r'{(\\cf4|\\cf1\\b|\\cf2\\b|\\cf3\\b) (.{5}) (.{40}) (.{10}) (.{50}) (.{9}) (.{26})\\par')
 regex_element_details = re.compile(
-    r'{\\cf5\\b Element: (\d*) (\w*) "(.*)" ".*";(.*); Contact Logic Code:(.*); Op. Time:(.*)\\par}')
+    r'{\\cf5\\b Element: (\d*) (.*) "(.*)".*;(.*); Contact Logic Code:(.*); Op. Time:(.*)\\par}')
     # '{\cf5\b Element: 55537 TIMER "T4" "1"; (7SA522)      ; Contact Logic Code: 21PG4T_M2   ; Op. Time:  2.017\par}'
 regex_circuit_details = re.compile(
     r'^{(\\cf4|\\cf2\\b|\\cf1\\b) (.{0,20}) (.{35}) (.{5}) (.{7}) (.{6}) (.{5}) (.{6}) (.{6}) (.*)\\par}')
@@ -148,8 +148,8 @@ def parse_coordination_files(dirct_path):
                     if i != '\n':
                         rtf_list.append(i)
             element_pd = element_pd.append(parse_file(rtf_list))
-            # if count > 1:
-            #     break
+            if count > 1:
+                break
             print('done')
 
 
@@ -158,15 +158,23 @@ def parse_coordination_files(dirct_path):
 
 
    element_pd_filtered = element_pd[(element_pd['Operation'] == 'MISCOORDINATION')  ]
-   for index, row in element_pd_filtered.iterrows():
-        test = element_pd.loc[(element_pd['Outage Number'] == row[0]) & (element_pd['Contingency'] == row[1]) & (element_pd['Line Under Study'] == row[4]) & (element_pd['Fault Type'] == row[2]) & (element_pd['Primary/Backup'] == 'PRIMARY')]
+   element_pd_filtered = element_pd_filtered[(element_pd_filtered['Element Operation Time'].astype(float) >= element_pd_filtered['LZOP Time'].astype(float).multiply(0.9) ) & (element_pd_filtered['Element Operation Time'].astype(float) <= element_pd_filtered['LZOP Time'].astype(float).multiply(1.1)) ]
+   length = element_pd_filtered.shape[0]
+   count = 0
+   element_pd_temp = element_pd[(element_pd['Outage Number'] == element_pd_filtered['Outage Number'])] 
      
-        test['Primary/Backup'] =  test['Primary/Backup'] +'-'+ test['Substation'] 
-        test['Substation'] = row.at['Substation']
-        test['Element'] = row.at['Element']
-        test['LZOP Name'] = row.at['LZOP Name']
-        element_pd_filtered = element_pd_filtered.append(test)
+   for index, row in element_pd_filtered.iterrows():
+        # test = element_pd[(element_pd['Outage Number'] == row[0]) & (element_pd['Contingency'] == row[1]) & (element_pd['Line Under Study'] == row[4]) & (element_pd['Fault Type'] == row[2]) & (element_pd['Primary/Backup'] == 'PRIMARY')]
+     
+        # test['Primary/Backup'] =  test['Primary/Backup'] +'-'+ test['Substation'] 
+        # test['Substation'] = row.at['Substation']
+        # test['Element'] = row.at['Element']
+        # test['LZOP Name'] = row.at['LZOP Name']
+        # element_pd_temp = element_pd_temp.append(test)
         # test = element_pd.loc[index]
+        count+= 1
+        if count % 100 ==0:
+            print((count/length)*100)
         print
         
    print('generating excel ')
