@@ -149,8 +149,8 @@ def parse_coordination_files(dirct_path):
                     if i != '\n':
                         rtf_list.append(i)
             element_pd = element_pd.append(parse_file(rtf_list))
-            # if count > 1:
-            #     break
+            if count > 1:
+                break
             print('done')
 
 
@@ -158,13 +158,13 @@ def parse_coordination_files(dirct_path):
                          , 'Breaker Time', 'Total Time', 'CTI', 'Operation', 'Relay Tag', 'Element Type' , 'Element', 'Relay Type', 'Contact Logic Code', 'Element Operation Time']
 
 
-   element_pd_filtered = element_pd[(element_pd['Operation'] == 'MISCOORDINATION')     ]
+   element_pd_filtered = element_pd[(element_pd['Operation'] == 'MISCOORDINATION') & (element_pd['Contingency'] == 'Primary System Normal                   ' )  ]
    element_pd_filtered = element_pd_filtered[(element_pd_filtered['Element Operation Time'].astype(float) >= element_pd_filtered['LZOP Time'].astype(float).multiply(0.9) ) & (element_pd_filtered['Element Operation Time'].astype(float) <= element_pd_filtered['LZOP Time'].astype(float).multiply(1.1)) ]
    length = element_pd_filtered.shape[0]
    count = 0
    element_pd_temp = []
    element_pd_temp_2 = element_pd[(element_pd['Outage Number'].isin(element_pd_filtered['Outage Number'])) & (element_pd['Contingency'].isin(element_pd_filtered['Contingency'])) & (element_pd['Line Under Study'].isin(element_pd_filtered['Line Under Study'])) & (element_pd['Fault Type'].isin(element_pd_filtered['Fault Type'])) & (element_pd['Primary/Backup'] == 'PRIMARY') ]
-   t1 = perf_counter() 
+   t1 = perf_counter()  
    for index, row in element_pd_filtered.iterrows():
     
         test = element_pd_temp_2[(element_pd_temp_2['Outage Number'] == row[0]) & (element_pd_temp_2['Contingency'] == row[1]) & (element_pd_temp_2['Line Under Study'] == row[4]) & (element_pd_temp_2['Fault Type'] == row[2]) ]
@@ -176,17 +176,23 @@ def parse_coordination_files(dirct_path):
         element_pd_temp.append(test)
 
         count+= 1
-        if count % 1000 ==0:
-            print((count/length)*100, length, perf_counter()-t1)
-            t1 = perf_counter() 
+        if count % 100 ==0:
+            print((count/length)*100, length, t1 - perf_counter())
+            t1 = perf_counter()
         print
-
-   element_pd_filtered = element_pd_filtered.append(element_pd_temp) 
+        
    print('generating excel ')
-    
+   element_pd_filtered = element_pd_filtered.append(element_pd_temp) 
+   element_pd_filtered = element_pd_filtered[['Substation', 'LZOP Name', 'Line Under Study',  'Outage Number', 'Element', 'Contingency', 'Fault Type', 'Fault Location' , 'LZOP Fault Clearing Time',   'LZOP Type', 'Primary/Backup', 'LZOP Time'
+                         , 'Breaker Time', 'Total Time', 'CTI', 'Operation', 'Relay Tag', 'Element Type' ,  'Relay Type', 'Contact Logic Code', 'Element Operation Time']]
+
+
+   
    element_pd_filtered = element_pd_filtered[(element_pd_filtered['Element Operation Time'].astype(float) >= element_pd_filtered['LZOP Time'].astype(float).multiply(0.9) ) & (element_pd_filtered['Element Operation Time'].astype(float) <= element_pd_filtered['LZOP Time'].astype(float).multiply(1.1)) ]
-   element_pd_filtered.set_index(['Line Under Study',  'Substation', 'LZOP Name',  'Element', 'Fault Type', 'Contingency','Fault Location' ], inplace=True)
-   element_pd_filtered = element_pd_filtered.sort_index()
+   element_pd_filtered.sort_values([ 'Substation', 'LZOP Name', 'Line Under Study',  'Element', 'Fault Type', 'Contingency','Fault Location', 'Primary/Backup' ], inplace=True)
+
+#    element_pd_filtered = element_pd_filtered.sort_values('Primary/Backup')
+#    element_pd_filtered = element_pd_filtered.sort_index()
    element_pd_filtered.to_excel('output.xlsx', engine='xlsxwriter')
 
    print()

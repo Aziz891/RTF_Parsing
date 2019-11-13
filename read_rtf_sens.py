@@ -315,21 +315,23 @@ def parse_file(rtf):
         
         print('finished')
         result_faults_2 = []
+        result_faults_1 = []
         result_faults_3 = []
         for i in result_faults_z2[1::3]:
-            result_faults.extend(i)
+            result_faults_1.extend(i)
         for i in result_faults_z2[0::3]:
             result_faults_2.extend(i)
         for i in result_faults_z2[2::3]:
             result_faults_3.extend(i)
 
-        return {'1': result_faults, '2': result_faults_2 , '3': result_faults_3 }
+        return {'1': result_faults, '4': result_faults_1,  '2': result_faults_2 , '3': result_faults_3 }
 
 
 def parse_sensitivity_files(dirct_path):
     element_pd = pd.DataFrame()
     element_pd_fwd = pd.DataFrame()
     element_pd_transform = pd.DataFrame()
+    element_pd_z2 = pd.DataFrame()
 
     for filename in os.listdir(dirct_path):
         if filename.startswith("NG_Sens") : 
@@ -347,7 +349,9 @@ def parse_sensitivity_files(dirct_path):
         
             element_pd = element_pd.append( temp['1'] )
             element_pd_fwd = element_pd_fwd.append( temp['2'] )
-            element_pd_transform = element_pd_transform.append( temp['3'] )
+            element_pd_z2 = element_pd_z2.append( temp['4'] )
+            if temp['3'].__len__()>0:
+                element_pd_transform = element_pd_transform.append( temp['3'] )
         
     print('done')
 
@@ -380,6 +384,7 @@ def parse_sensitivity_files(dirct_path):
     # print('generating excel ')
     writer = pd.ExcelWriter('pandas_multiple.xlsx', engine='xlsxwriter')
     element_pd.to_excel(writer,  sheet_name='a')
+    element_pd_z2.to_excel(writer,  sheet_name='higher zone')
     element_pd_fwd.to_excel(writer,  sheet_name='b')
     element_pd_transform.to_excel(writer,  sheet_name='c')
     writer.save()
