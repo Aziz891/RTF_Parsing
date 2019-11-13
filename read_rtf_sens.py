@@ -347,7 +347,8 @@ def parse_sensitivity_files(dirct_path):
         
             element_pd = element_pd.append( temp['1'] )
             element_pd_fwd = element_pd_fwd.append( temp['2'] )
-            element_pd_transform = element_pd_transform.append( temp['3'] )
+            if temp['3'].__len__()>0:
+                element_pd_transform = element_pd_transform.append( temp['3'] )
         
     print('done')
 
