@@ -149,8 +149,8 @@ def parse_coordination_files(dirct_path):
                     if i != '\n':
                         rtf_list.append(i)
             element_pd = element_pd.append(parse_file(rtf_list))
-            if count > 1:
-                break
+            # if count > 1:
+            #     break
             print('done')
 
 

@@ -125,7 +125,7 @@ def fault_to_panda_z2(fault):
                     continue
                 if reg2:
                      
-                    elements_list_sens.append([*one_element[0], *reg2[0]]) if not transform else elements_list_transform.append([*one_element[0], *reg2[0]]) 
+                    elements_list_sens.append([filename.strip('NG_Sens_Review').strip('_Sensitivity.rtf'), *one_element[0], *reg2[0]]) if not transform else elements_list_transform.append([filename.strip('NG_Sens_Review').strip('_Sensitivity.rtf'), *one_element[0], *reg2[0]]) 
                     
             
 
@@ -197,15 +197,15 @@ def fault_to_panda_z2(fault):
                     if reg2[0][6] =='FWD1':   
                         count = elements.__len__()
                         elements_length = elements.__len__()
-                        elements_list.append([*elements[0] ,*reg2[0]])
+                        elements_list.append([filename.strip('NG_Sens_Review').strip('_Sensitivity.rtf'), *elements[0] ,*reg2[0]])
                         last = reg2
                     else:
                         count -= 1
-                        elements_list.append([*elements[elements_length - count],*last[0][:-4], *reg_rev[0]])
+                        elements_list.append([filename.strip('NG_Sens_Review').strip('_Sensitivity.rtf'), *elements[elements_length - count],*last[0][:-4], *reg_rev[0]])
                 elif reg_rev:
                     if reg_rev[0][0] != 'ed  ': 
                         count -= 1
-                        elements_list.append([*elements[elements_length - count],*last[0][:-4], *reg_rev[0]])
+                        elements_list.append([filename.strip('NG_Sens_Review').strip('_Sensitivity.rtf'), *elements[elements_length - count],*last[0][:-4], *reg_rev[0]])
 
                     # if elements.__len__() > 1:
                     #     fwd_rev = True
@@ -232,11 +232,21 @@ def fault_to_panda_z2(fault):
 def fault_to_panda_z1(fault):
     element_info = False
     fault_details = False
+    continue_line = False
     temp = []
     element_list = []
     circuit_details = []
     for i in fault:
 
+        if continue_line:
+                    i = re.sub(r'\n', '', last_line) + i
+                    continue_line = False
+                   
+                
+        if not re.match(r'.*\\par$', i):
+                    last_line = i
+                    continue_line = True
+                    continue
         if element_info:
             match_reg = regex_element_info.findall(i)
 
@@ -264,7 +274,7 @@ def fault_to_panda_z1(fault):
                     except IndexError:
                         list_fault = 13 * ['error']
                    
-                    element_list.append([*list_element, *list_fault ])
+                    element_list.append([filename.strip('NG_Sens_Review').strip('_Sensitivity.rtf'),*list_element, *list_fault ])
               if re.match(r'^(\\pard\\cf1|\\pard\\cf1\\b0) ------------------------------------------------------------------------------------------------------------------------------.*', i):
                     fault_details = False
                     element_info = False
@@ -333,12 +343,14 @@ def parse_sensitivity_files(dirct_path):
     element_pd_transform = pd.DataFrame()
     element_pd_z2 = pd.DataFrame()
 
-    for filename in os.listdir(dirct_path):
-        if filename.startswith("NG_Sens") : 
+    for file_path in os.listdir(dirct_path):
+        if file_path.startswith("NG_Sens") : 
    
-            with open( dirct_path +'\\'+ filename, 'r') as f:
+            with open( dirct_path +'\\'+ file_path, 'r') as f:
                 rtf_list = []
-                print(filename)
+                print(file_path)
+                global filename
+                filename = file_path
                 for i in f:
                         if i != '\n':
                             rtf_list.append(i)
@@ -355,33 +367,40 @@ def parse_sensitivity_files(dirct_path):
         
     print('done')
 
-    element_pd_fwd.columns = ('FWD/REV', 'ELEMENT Order', 'Substation', 'Relay Tag', 'Eelment Type', 'Element Name', 'zones', 'Zone', 'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Fault Location', 'Line Impedance', 'Line Angle', 'Element Direction',
+    element_pd_fwd.columns = ('Line Under Study', 'FWD/REV', 'ELEMENT Order', 'Substation', 'Relay Tag', 'Eelment Type', 'Element Name', 'zones', 'Zone', 'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Fault Location', 'Line Impedance', 'Line Angle', 'Element Direction',
      'Actual Reach %', 'Reach Margin %', 'PASS/FAIL')
     element_pd_fwd = element_pd_fwd[element_pd_fwd['PASS/FAIL'] == 'FAIL']
-    element_pd_fwd = element_pd_fwd[['Substation',  'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name',  'Zone', 'CLC', 'FWD/REV', 'ELEMENT Order', 'Outage Number', 'Contingency', 'Fault Location', 'Line Impedance', 'Line Angle', 'Element Direction',
+    element_pd_fwd = element_pd_fwd[['Substation','Line Under Study',  'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name',  'Zone', 'CLC', 'FWD/REV', 'ELEMENT Order', 'Outage Number', 'Contingency', 'Fault Location', 'Line Impedance', 'Line Angle', 'Element Direction',
      'Actual Reach %', 'Reach Margin %', 'PASS/FAIL']]
-    element_pd_fwd.sort_values(['Substation',  'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name',  'Zone', 'CLC', 'FWD/REV', 'ELEMENT Order', 'Outage Number'], inplace=True)
+    element_pd_fwd.sort_values(['Substation', 'Line Under Study', 'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name',  'Zone', 'CLC', 'FWD/REV', 'ELEMENT Order', 'Outage Number'], inplace=True)
    
-    element_pd.columns = ('Substation', 'Relay Tag', 'Eelment Type', 'Element Name',  'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Delay',  'Line Impedance', 'Line Angle', 'Setting Reach',
+    element_pd.columns = ('Line Under Study','Substation', 'Relay Tag', 'Eelment Type', 'Element Name',  'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Delay',  'Line Impedance', 'Line Angle', 'Setting Reach',
      'Reach %', 'Actual Reach %', 'Desired Reach %', 'PASS/FAIL', 'Operation Time', 'SIR')
     element_pd = element_pd[element_pd['PASS/FAIL'] == 'FAIL']
-    element_pd = element_pd[['Substation', 'Relay Tag', 'Relay Type', 'Eelment Type', 'Element Name', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Delay',  'Line Impedance', 'Line Angle', 'Setting Reach',
+    element_pd = element_pd[['Substation', 'Line Under Study', 'Relay Tag', 'Relay Type', 'Eelment Type', 'Element Name', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Delay',  'Line Impedance', 'Line Angle', 'Setting Reach',
       'Reach %', 'Actual Reach %', 'Desired Reach %', 'PASS/FAIL', 'Operation Time', 'SIR']]
-    element_pd.sort_values(['Substation',  'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name', 'CLC', 'Outage Number'], inplace=True)
+    element_pd.sort_values(['Substation', 'Line Under Study', 'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name', 'CLC', 'Outage Number'], inplace=True)
+   
+    element_pd_z2.columns = ('Line Under Study','Substation', 'Relay Tag', 'Eelment Type', 'Element Name',  'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Fault Location', 'Delay',  'Apparent Impedance', 'Apparent Angle', 'Calculated Reach',
+     'Reach %',  'Desired Reach %', 'PASS/FAIL', 'Operation Time')
+    element_pd_z2 = element_pd_z2[element_pd_z2['PASS/FAIL'] == 'FAIL']
+    element_pd_z2 = element_pd_z2[['Substation', 'Line Under Study', 'Relay Tag', 'Relay Type', 'Eelment Type', 'Element Name', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Fault Location', 'Delay',  'Apparent Impedance', 'Apparent Angle', 'Calculated Reach',
+     'Reach %',  'Desired Reach %', 'PASS/FAIL', 'Operation Time']]
+    element_pd_z2.sort_values(['Substation', 'Line Under Study', 'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name', 'CLC', 'Outage Number'], inplace=True)
+    
+    element_pd_transform.columns = ('Line Under Study','Substation', 'Relay Tag', 'Eelment Type', 'Element Name',  'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Fault Location', 'Delay',  'Apparent Impedance Mag.', 'Bound Impedance', '50% Z2 Reach',
+     'Z2 PASS/FAIL',  'Apparent Angle', 'Calculated Reach', 'Actual Ratio', 'PASS/FAIL', 'Operation')
+    element_pd_transform = element_pd_transform[element_pd_transform['PASS/FAIL'] == 'FAIL']
+    element_pd_transform = element_pd_transform[['Substation', 'Line Under Study', 'Relay Tag', 'Eelment Type', 'Element Name',  'Relay Type', 'CLC','Outage Number', 'Fault Type', 'Contingency', 'Fault Location', 'Delay',  'Apparent Impedance Mag.', 'Bound Impedance', '50% Z2 Reach',
+     'Z2 PASS/FAIL',  'Apparent Angle', 'Calculated Reach', 'Actual Ratio', 'PASS/FAIL', 'Operation']]
+    element_pd_transform.sort_values(['Substation', 'Line Under Study', 'Relay Tag',  'Relay Type', 'Eelment Type', 'Element Name', 'CLC', 'Outage Number'], inplace=True)
    
  
 
 
     
 
-    # element_pd.columns =['Outage Number', 'Contingency', 'Fault Type', 'Fault Location' , 'Line Under Study', 'LZOP Fault Clearing Time', 'Substation', 'LZOP Name', 'LZOP Type', 'Primary/Backup', 'LZOP Time'
-    # , 'Breaker Time', 'Total Time', 'CTI', 'Operation', 'Relay Tag', 'Element Type' , 'Element', 'Relay Type', 'Contact Logic Code', 'Element Operation Time']
-    # element_pd = element_pd[element_pd['Operation'] != 'NORMAL OPERATION']
-    # test = element_pd['LZOP Time']
-    # element_pd = element_pd[(element_pd['Element Operation Time'].astype(float) >= element_pd['LZOP Time'].astype(float).multiply(0.9) ) & ( element_pd['Element Operation Time'].astype(float) <= element_pd['LZOP Time'].astype(float).multiply(1.1)) ]
-    # element_pd.set_index(['Line Under Study',  'Substation', 'LZOP Name',  'Contingency', 'Element', 'Fault Type' ], inplace=True)
-    # element_pd = element_pd.sort_index()
-    # print('generating excel ')
+   
     writer = pd.ExcelWriter('pandas_multiple.xlsx', engine='xlsxwriter')
     element_pd.to_excel(writer,  sheet_name='a')
     element_pd_z2.to_excel(writer,  sheet_name='higher zone')
